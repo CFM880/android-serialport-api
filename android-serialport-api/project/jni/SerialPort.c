@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <errno.h>
 #include <jni.h>
 
 #include "SerialPort.h"
@@ -100,6 +101,7 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
 		(*env)->ReleaseStringUTFChars(env, path, path_utf);
 		if (fd == -1)
 		{
+			LOGE("error info : %s\n", strerror(errno));
 			/* Throw an exception */
 			LOGE("Cannot open port");
 			/* TODO: throw an exception */
